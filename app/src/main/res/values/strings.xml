@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OCRsample</string>
+    <string name="bt_click">OCR</string>
 </resources>
