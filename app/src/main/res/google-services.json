@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351283325233",
+    "project_id": "ocrtestsmple",
+    "storage_bucket": "ocrtestsmple.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351283325233:android:de630bccf9b82b5b4ca810",
+        "android_client_info": {
+          "package_name": "com.websarva.wings.android.ocrsample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351283325233-5i1r792obvjksmf78lest691sdh8uc8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuD0sxI7X4J7C3Fq5PMpw1Fzgnv4FRY1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351283325233-5i1r792obvjksmf78lest691sdh8uc8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
