@@ -31,25 +31,31 @@ class MainActivity : AppCompatActivity() {
         override fun onClick(view: View){
             val output = findViewById<TextView>(R.id.OCROutput)
 
-            val file = File("/storage/self/primary/Download/test.jpeg")
-            if (!file.exists()) return
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-            val image = FirebaseVisionImage.fromBitmap(bitmap)
+            val uriStr = "/storage/self/primary/Download/test.jpeg"
+            val uri = Uri.parse(uriStr)
+            var image:FirebaseVisionImage? =null
+            try {
+                image = FirebaseVisionImage.fromFilePath(this@MainActivity, uri)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
 
 
 
             val detector = FirebaseVision.getInstance()
                 .onDeviceTextRecognizer
-
-            val result = detector.processImage(image)
-                .addOnSuccessListener { firebaseVisionText ->
-                    val OCRresult = processTextBlock(firebaseVisionText)
-                    output.text = OCRresult
-                }
-                .addOnFailureListener { e ->
-                    output.text = "OCR失敗"
-                }
-
+            if(image != null){
+                val result = detector.processImage(image)
+                    .addOnSuccessListener { firebaseVisionText ->
+                        val OCRresult = processTextBlock(firebaseVisionText)
+                        output.text = OCRresult
+                    }
+                    .addOnFailureListener { e ->
+                        output.text = "OCR失敗"
+                    }
+            }else{
+                output.text = "imageが読み込めませんでした"
+            }
         }
     }
 
