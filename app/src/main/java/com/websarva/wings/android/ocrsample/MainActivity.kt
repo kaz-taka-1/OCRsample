@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         val btClick = findViewById<Button>(R.id.btOutput)
         val listener = OCROutListenner()
+
         btClick.setOnClickListener(listener)
     }
     private inner class OCROutListenner : View.OnClickListener{
