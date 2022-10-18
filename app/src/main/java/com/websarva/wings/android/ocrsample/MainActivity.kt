@@ -1,11 +1,16 @@
 package com.websarva.wings.android.ocrsample
 
+import android.content.ContentUris
+import android.content.ContentValues
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Parcelable.CONTENTS_FILE_DESCRIPTOR
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -15,8 +20,7 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
 import com.google.firebase.ml.vision.text.FirebaseVisionText
-import java.io.File
-import java.io.IOException
+import java.io.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,16 +34,44 @@ class MainActivity : AppCompatActivity() {
     }
     private inner class OCROutListenner : View.OnClickListener{
         override fun onClick(view: View){
-            val output = findViewById<TextView>(R.id.OCROutput)
 
-            val uriStr = "/storage/self/primary/Download/test.jpeg"
-            val uri = Uri.parse(uriStr)
-            var image:FirebaseVisionImage? =null
+            val collection =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    MediaStore.Images.Media.getContentUri(
+                        MediaStore.VOLUME_EXTERNAL
+                    )
+                } else {
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                }
+            val projection = arrayOf(
+                MediaStore.Images.Media._ID,
+            )
+            applicationContext.contentResolver.query(
+                collection,
+                projection,
+                null,
+                null,
+                null
+            )?.use { cursor ->
+                val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+                while (cursor.moveToNext()) {
+                    val id = cursor.getLong(idColumn)
+                    val contentUri: Uri = ContentUris.withAppendedId(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        id
+                    )
+                }
+
+            }//Uriget
+            val output = findViewById<TextView>(R.id.OCROutput)
+            /*val uriStr = "/storage/self/primary/Download/test.jpeg"
+            //val uri = Uri.parse(uriStr)
+            //var image:FirebaseVisionImage? =null
             try {
                 image = FirebaseVisionImage.fromFilePath(this@MainActivity, uri)
             } catch (e: IOException) {
                 e.printStackTrace()
-            }
+            }*/
 
 
 
