@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
     private inner class OCROutListenner : View.OnClickListener{
         override fun onClick(view: View){
-
+            val items = mutableListOf<String>()
             val collection =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     MediaStore.Images.Media.getContentUri(
@@ -60,18 +60,21 @@ class MainActivity : AppCompatActivity() {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         id
                     )
+                    items.add(contentUri.toString())
                 }
 
             }//Uriget
+
+
+
             val output = findViewById<TextView>(R.id.OCROutput)
-            /*val uriStr = "/storage/self/primary/Download/test.jpeg"
-            //val uri = Uri.parse(uriStr)
-            //var image:FirebaseVisionImage? =null
+            output.text = items.toString()
+            /*var image:FirebaseVisionImage? =null
             try {
                 image = FirebaseVisionImage.fromFilePath(this@MainActivity, uri)
             } catch (e: IOException) {
                 e.printStackTrace()
-            }*/
+            }//uriから画像を取り込む
 
 
 
@@ -88,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                     }
             }else{
                 output.text = "imageが読み込めませんでした"
-            }
+            }*/
         }
     }
 
