@@ -3,7 +3,9 @@ package com.websarva.wings.android.ocrsample
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import android.os.Environment
 import android.os.Parcelable.CONTENTS_FILE_DESCRIPTOR
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Size
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -64,11 +67,14 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }//Uriget
+            val thumbnail: Bitmap =
+                applicationContext.contentResolver.loadThumbnail(
+                    items.St, Size(640, 480), null)
 
 
 
             val output = findViewById<TextView>(R.id.OCROutput)
-            output.text = items.toString()
+            output.text = collection
             /*var image:FirebaseVisionImage? =null
             try {
                 image = FirebaseVisionImage.fromFilePath(this@MainActivity, uri)
