@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             val projection = arrayOf(
                 MediaStore.Images.Media._ID,
             )
+
             applicationContext.contentResolver.query(
                 collection,
                 projection,
@@ -63,18 +64,19 @@ class MainActivity : AppCompatActivity() {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         id
                     )
+                    println(contentUri)
                     items.add(contentUri.toString())
                 }
 
             }//Uriget
-            val thumbnail: Bitmap =
-                applicationContext.contentResolver.loadThumbnail(
-                    items.St, Size(640, 480), null)
 
 
+            var output = findViewById<TextView>(R.id.OCROutput)
+            output.text="test"
+            println(items.count())
+            println(collection)
+            println(projection)
 
-            val output = findViewById<TextView>(R.id.OCROutput)
-            output.text = collection
             /*var image:FirebaseVisionImage? =null
             try {
                 image = FirebaseVisionImage.fromFilePath(this@MainActivity, uri)
