@@ -41,19 +41,22 @@ class MainActivity : AppCompatActivity() {
             val collection =
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     MediaStore.Images.Media.getContentUri(
-                        MediaStore.VOLUME_EXTERNAL
+                       MediaStore.VOLUME_EXTERNAL_PRIMARY
                     )
                 } else {
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 }
             val projection = arrayOf(
                 MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.DATE_TAKEN
             )
+            val selection = "${MediaStore.Images.Media.DATE_TAKEN} >= ?"
 
             applicationContext.contentResolver.query(
-                collection,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 projection,
-                null,
+                selection,
                 null,
                 null
             )?.use { cursor ->
