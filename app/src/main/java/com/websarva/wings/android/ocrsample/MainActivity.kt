@@ -1,5 +1,6 @@
 package com.websarva.wings.android.ocrsample
 
+import android.Manifest
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
@@ -19,6 +20,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.PermissionChecker
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
@@ -26,6 +28,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText
 import java.io.*
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.DATE_TAKEN
             )
-            val selection = "${MediaStore.Images.Media.DATE_TAKEN} >= ?"
+            val selection = null
 
             applicationContext.contentResolver.query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -72,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }//Uriget
-
 
             var output = findViewById<TextView>(R.id.OCROutput)
             output.text="test"
